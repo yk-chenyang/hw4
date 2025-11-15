@@ -141,7 +141,6 @@ protected:
     void rotateRight(AVLNode<Key, Value>* n);
     void insertFix(AVLNode<Key, Value>* p, AVLNode<Key, Value>* n);
     void removeFix(AVLNode<Key, Value>* n, int diff);
-    int height(AVLNode<Key, Value>* root);
 };
 
 /*
@@ -308,32 +307,6 @@ void AVLTree<Key, Value>::remove(const Key& key)
     }
     if(p!=NULL){
       removeFix(p,diff); //fix
-    }
-}
-
-//helper function that determines the height of a specific node. Copied from the equal-paths assignment and slightly modified
-template<class Key, class Value>
-int AVLTree<Key, Value>::height(AVLNode<Key, Value>* root){
-    if(root==NULL){
-      return -1; //this is essentially impossible because we'll verify that in our outer function. For safety, we still keep this.
-    }
-    if(root->getLeft()==NULL && root->getRight()==NULL){ //we've arrived at the leaf
-      return 0;
-    }
-    if(root->getLeft()!=NULL && root->getRight()==NULL){
-      return 1+maxDepth(root->getLeft());
-    }
-    if(root->getLeft()==NULL && root->getRight()!=NULL){ //cases where we only have one path to go down
-      return 1+maxDepth(root->getRight());
-    }
-    //if we have both left and right
-    int leftD = maxDepth(root->getLeft());
-    int rightD = maxDepth(root->getRight());
-    if(leftD>=rightD){ //compare to get the maxDepth
-      return 1+leftD;
-    }
-    else{
-      return 1+rightD;
     }
 }
 
